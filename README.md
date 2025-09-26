@@ -25,28 +25,33 @@ This tool provides an efficient way to keep track of your credentials while main
 ---
 
 ## 🚀 Usage
-1. Open a terminal/command prompt and navigate to the project directory.  
-2. Compile the project:  
+1. Open a terminal/command prompt and navigate to the project directory.
+2. Install OpenSSL development libraries first
+```bash
+sudo apt-get update
+sudo apt-get install libssl-dev
+```
+4. Compile the project:  
    ```bash
-   g++ main.cpp -o password_manager
+   g++ -std=c++17 -Wall -Wextra -O2 main.cpp -o password_manager -lssl -lcrypto
    ```  
-3. Run the application:  
+5. Run the application:  
    ```bash
    ./password_manager
    ```  
-4. Select or create a password storage file when prompted.  
-5. Use the interactive menu to:  
+6. Select or create a password storage file when prompted.  
+7. Use the interactive menu to:  
    - Generate random passwords  
    - Add, edit, delete, or search passwords  
    - Sort entries  
    - Manage categories  
-6. All changes will be automatically saved to your selected file.  
+8. All changes will be automatically saved to your selected file.  
 
 ---
 
 ## 📝 Roadmap / TODO
 Planned features and improvements:  
-- 🔒 Encryption & decryption support for secure file storage.  
+- 🔒 AES-128 Encryption & decryption support for secure file storage.  
 - 📊 Enhanced password strength evaluation.  
 - 📂 Import/export functionality for password databases.  
 
