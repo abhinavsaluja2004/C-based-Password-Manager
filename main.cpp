@@ -7,9 +7,9 @@
 
 
 /**
- * Funkcja, która zapisuje hasła do pliku w postaci zaszyfrowanej.
+ * Function that saves passwords to a file in encrypted form.
  *
- * Wykorzystuje do tego funkcję write, która przekazuje binarne dane.
+ * Uses the write function, which passes binary data.
  *
  */
 void PasswordManager::encryptFile() {
@@ -26,9 +26,8 @@ void PasswordManager::encryptFile() {
 
 
 /**
- * Funkcja odczytuje hasła z pliku dzięki metodzie read, która odczytuje binarne dane
- *
- *
+ * Function that reads passwords from a file using the read method,
+ * which reads binary data.
  */
 void PasswordManager::decryptFile() {
     passwords.clear();
@@ -50,11 +49,11 @@ void PasswordManager::decryptFile() {
 
 
 /**
- * Sprawdzenie czy hasło zostało już użyte.
+ * Check if the password has already been used.
  *
- * @param password Parametr, w którym sprawdzamy czy był już użyty
- * @return true jeśli parametr został użyty
- * @return false jeśli parametr nie został użyty
+ * @param password The parameter to check if already used
+ * @return true if the parameter was already used
+ * @return false if the parameter was not used
  */
 bool PasswordManager::isPasswordUsed(const std::string &password) const {
     for (const auto &entry: passwords) {
@@ -67,9 +66,9 @@ bool PasswordManager::isPasswordUsed(const std::string &password) const {
 
 
 /**
- * Konstruktor klasy PasswordManager
+ * Constructor of the PasswordManager class
  *
- * @param file przekazujemy plik do konstruktora, który zostanie odszyfrowany
+ * @param file The file passed to the constructor, which will be decrypted
  */
 PasswordManager::PasswordManager(const std::string &file) : filename(file) {
     decryptFile();
@@ -77,13 +76,13 @@ PasswordManager::PasswordManager(const std::string &file) : filename(file) {
 
 
 /**
- * Metoda, która wyszukuje hasło po odpowiednim zapytaniu przekazanym jako argument
+ * Method that searches for a password based on the query provided as an argument.
  *
- * Używamy do tego funkcji find() dla typu std::string z przekazanym argumentem query
+ * We use the find() function for std::string with the given query.
  *
- * Następnie zostają wyświetlone znalezione stringi z danych kategorii
+ * Then, matching strings from the given categories are displayed.
  *
- * @param query podajemy zapytanie, pod którym chcemy żeby nasze hasło zostało znalezione
+ * @param query The query under which we want to find our password
  */
 void PasswordManager::searchPasswords(const std::string &query) const {
     std::cout << "Searched passwords:\n";
@@ -106,15 +105,13 @@ void PasswordManager::searchPasswords(const std::string &query) const {
 }
 
 /**
- * Sortujemy hasła po różnych parametrach.
+ * Sort passwords by different parameters.
  *
- * Wykorzystujemy do tego bibliotekę <algorithm> i funkcje sort().
+ * Uses the <algorithm> library and the sort() function.
  *
- *
- *
- * @param fields wybieramy po jakich parametrach chcemy sortowac
- * @param result tworzymy wektor z posortowanymi hasłami
- * @return false jeśli nie znajdziemy nic
+ * @param fields Choose which parameters to sort by
+ * @param result Create a vector with sorted passwords
+ * @return false if nothing is found
  */
 void PasswordManager::sortPasswords(const std::vector<std::string> &fields) {
     std::vector<Password> result = passwords;
@@ -160,15 +157,15 @@ void PasswordManager::sortPasswords(const std::vector<std::string> &fields) {
 
 
 /**
- * Funkcja sprawdza, które opcje mają zostać rozpatrzone w tworzeniu losowego hasła.
+ * Function checks which options should be considered when generating a random password.
  *
- * Następnie tworzy i zwraca losowe hasło.
+ * Then generates and returns a random password.
  *
- * @param length dlugosc hasla
- * @param upperCase czy w hasle maja zostac uzyte wielkie litery
- * @param lowerCase czy w hasle maja zostac uzyte male litery
- * @param specialChar czy w hasle maja zostac uzyte znaki specjalne
- * @return zwraca losowe hasło
+ * @param length password length
+ * @param upperCase whether uppercase letters should be included
+ * @param lowerCase whether lowercase letters should be included
+ * @param specialChar whether special characters should be included
+ * @return returns the generated password
  */
 std::string PasswordManager::randomPassword(int length, bool upperCase, bool lowerCase, bool specialChar) const {
     srand(time(NULL));
@@ -210,14 +207,13 @@ void PasswordManager::printVector() {
 }
 
 /**
- * Funkcja dodająca hasło z wybranymi przez nas parametrami.
+ * Function that adds a password with parameters of our choice.
  *
- * Funkcja pozwala na wygenerowanie losowego hasła z wybranymi przez nas parametrami takimi jak:
- * długość hasła, wielkie litery, małe litery oraz znaki specjalne.
+ * Allows generating a random password with chosen parameters such as:
+ * password length, uppercase letters, lowercase letters, and special characters.
  *
- *
- * Po wybraniu wszystkich parametrów tworzy hasło z odpowiednimi polami i dodaje do wektora.
- *
+ * After selecting all parameters, creates a password with the appropriate fields
+ * and adds it to the vector.
  */
 void PasswordManager::addPassword() {
     Password password;
@@ -228,7 +224,7 @@ void PasswordManager::addPassword() {
         getline(std::cin, password.name);
     } while (password.name.empty());
 
-    std::cout << "Do you want to generate random password? (Y/N): ";
+    std::cout << "Do you want to generate a random password? (Y/N): ";
     char generateChoice;
     std::cin >> generateChoice;
     tolower(generateChoice);
@@ -269,14 +265,14 @@ void PasswordManager::addPassword() {
             std::cout << "Password: ";
             getline(std::cin, password.password);
             if (isPasswordUsed(password.password)) {
-                std::cout << "Password is already used and can be unsafe.\n";
+                std::cout << "Password is already used and may be unsafe.\n";
             }
         } while (password.password.empty());
     } else {
         std::cout << "Error. \n";
     }
 
-    std::cout << "Do you want to add category that has been already created? (Y/n): ";
+    std::cout << "Do you want to add an already created category? (Y/n): ";
     char categoryChoice;
     std::cin >> categoryChoice;
     tolower(categoryChoice);
@@ -303,12 +299,11 @@ void PasswordManager::addPassword() {
 }
 
 /**
- * Funkcja, która pozwala użytkownikowi na zmiane wartości w haśle
+ * Function that allows the user to change values in a password.
  *
- * Pobiera od użytkownika nazwę hasła, a następnie użytkownik wybiera co chce zmienić
+ * It asks the user for the password name, then lets the user choose what to edit.
  *
- *
- * @param name nazwa hasła do edytowania
+ * @param name password name to edit
  */
 void PasswordManager::editPassword() {
     std::string name;
@@ -322,22 +317,22 @@ void PasswordManager::editPassword() {
             std::cout << "Editing password:" << std::endl;
             std::cout << "Name: " << password.name << std::endl;
 
-            std::cout << "New name (click enter if stays the same): ";
+            std::cout << "New name (press enter to keep the same): ";
             getline(std::cin, name);
             if (!name.empty()) {
                 password.name = name;
             }
 
-            std::cout << "New password (click enter if stays the same): ";
+            std::cout << "New password (press enter to keep the same): ";
             getline(std::cin, password.password);
 
-            std::cout << "New category (click enter if stays the same): ";
+            std::cout << "New category (press enter to keep the same): ";
             getline(std::cin, password.category);
 
-            std::cout << "New website (click enter if stays the same): ";
+            std::cout << "New website (press enter to keep the same): ";
             getline(std::cin, password.website);
 
-            std::cout << "New login (click enter if stays the same): ";
+            std::cout << "New login (press enter to keep the same): ";
             getline(std::cin, password.login);
 
             encryptFile();
@@ -354,10 +349,9 @@ void PasswordManager::editPassword() {
 }
 
 /**
- * Funkcja, która pobiera od użytkownika nazwe hasła, a później je usuwa.
+ * Function that asks the user for a password name and then deletes it.
  *
- * @param name nazwa hasła do usunięcia
- *
+ * @param name name of the password to delete
  */
 void PasswordManager::removePassword() {
     std::string name;
@@ -389,11 +383,11 @@ void PasswordManager::removePassword() {
 
 
 /**
- * Funkcja, która dodaje nową kategorię do wektora kategorii.
+ * Function that adds a new category to the category vector.
  *
- * Pobiera od użytkownika nazwę kategorii
+ * Asks the user for the category name
  *
- * @param category nazwa kategorii do dodania
+ * @param category name of the category to add
  */
 void PasswordManager::addCategory() {
     std::string category;
@@ -406,11 +400,11 @@ void PasswordManager::addCategory() {
 
 
 /**
- * Funkcja, która pozwala na usunięcie kategorii wraz ze wszystkimi hasłami przypisanymi do tej kategorii
+ * Function that deletes a category along with all passwords assigned to it.
  *
- * Pobiera od użytkownika nazwę kategorii.
+ * Asks the user for the category name.
  *
- * @param category nazwa kategorii do usunięcia
+ * @param category name of the category to delete
  */
 void PasswordManager::removeCategory() {
     std::string category;
@@ -429,11 +423,10 @@ void PasswordManager::removeCategory() {
 }
 
 /**
- * Funkcja sprawdzająca czy podany plik z parametru istnieje
+ * Function that checks if the given file exists.
  *
- *
- * @param filename wczytujemy nazwę pliku
- * @return true jeśli plik istnieje
+ * @param filename file name to check
+ * @return true if the file exists
  */
 bool fileExists(const std::string &filename) {
     std::ifstream file(filename);
@@ -453,7 +446,7 @@ int main() {
     PasswordManager manager(filename);
 
     if (!fileExists(filename)) {
-        std::cout << "File not exist.\n";
+        std::cout << "File does not exist.\n";
     } else {
         while (true) {
             std::cout << "1. Search password" << std::endl;
